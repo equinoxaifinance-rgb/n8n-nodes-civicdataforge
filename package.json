@@ -1,0 +1,45 @@
+{
+  "name": "n8n-nodes-civicdataforge",
+  "version": "0.1.0-local.2",
+  "private": true,
+  "description": "Bounded CivicDataForge property scope and evidence REST operations",
+  "license": "MIT",
+  "author": {
+    "name": "CivicDataForge",
+    "email": "civicdataforgehq@gmail.com"
+  },
+  "homepage": "https://civicdataforge.pages.dev/connect-agent",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-assets.cjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test tests/*.test.cjs",
+    "lint": "n8n-node lint"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/CivicDataForgeApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/CivicDataForge/CivicDataForge.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "0.50.5",
+    "n8n-workflow": "2.16.0",
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge.git"
+  }
+}
