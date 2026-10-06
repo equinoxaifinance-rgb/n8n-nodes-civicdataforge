@@ -1,4 +1,4 @@
-# CivicDataForge n8n node — local prototype
+# CivicDataForge n8n node
 
 This TypeScript client connects to CivicDataForge's existing REST service. Version 0.1.0 is prepared for publication; npm publication and n8n verification remain pending. It is not an approved community node, partnership, hosted agent, or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
 
@@ -13,6 +13,16 @@ This TypeScript client connects to CivicDataForge's existing REST service. Versi
 All calls use `https://civicdataforge.pages.dev`. No arbitrary host, redirects, MCP, Apify token, checkout, subscription, account provisioning, trigger or schedule is exposed. n8n credentials store the key; do not embed it in workflow JSON. Credential testing reads usage only. CDF onboarding/terms: https://civicdataforge.pages.dev/connect-agent . Service and n8n hosting charges are separate from this MIT client.
 
 Scope: one public US property address, exact supported jurisdiction/city, and two-letter state per item. The UI is not a promise of jurisdiction coverage; the service rejects unsupported inputs. Inputs are intentionally narrower than the full CDF API. `retentionDays:0` is a request field, not a promise that n8n execution history or downstream providers delete data. Configure your own execution retention before processing sensitive information.
+
+## Start free, then connect paid evidence
+
+1. After npm publication, install `n8n-nodes-civicdataforge` in a self-hosted n8n instance that permits community nodes. The MIT connector has no license fee; n8n hosting and CDF evidence are separate costs. n8n Cloud availability requires separate n8n verification.
+2. Import [the inactive free example](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/blob/main/examples/free-property-scope.workflow.json), enter one public address/city/state and execute manually. No credential is needed. Expect `scope_ready_not_evidence`, not government records.
+3. For this node's authenticated operations, review and subscribe to the [CivicDataForge AWS Marketplace offer](https://aws.amazon.com/marketplace/pp/prodview-6sjgyotxqa22o). Choose **Set up your account**, complete subscription activation and securely save the CDF API key shown once. The listing currently advertises **$0.10 per successful evidence request**, with failed requests and identical retries unbilled; the live listing and your accepted terms control. A delivered review-required or no-match packet is not necessarily a failed request.
+4. In n8n, create a **CivicDataForge API** credential and paste only your CDF key into **API Key**. Leave **Approved Evidence Requests** as `[]` initially. Test the credential or select **Get Usage** to check access without collecting evidence. Never enter an AWS secret, Apify token or payment credential.
+5. Before a paid run, obtain customer authority, review every input item and configure the exact static approval described below. Select **Get Property Evidence**, select that credential, set the matching address/city/state and stable idempotency key, and acknowledge **Customer Authorized**. Execute one reviewed request first; inspect decision, completeness and source evidence before scaling.
+
+The free quote's `handoff.url` points to the separate Apify purchase route. Following that route does **not** provision a CDF credential for this node. The separate $4.99 delivered permit audit also is not an API-key subscription. Use the AWS activation route above for the node, or contact [CDF support](mailto:civicdataforgehq@gmail.com) if activation or key recovery is needed. Send a request ID and error code, never your key. **Get Usage** reads service-reported usage; it does not set a spending cap or independently verify your invoice.
 
 ## Free checks and evidence
 
@@ -41,6 +51,17 @@ Each entry must have exactly `address`, `city`, `state`, `idempotencyKey`, and `
 At most 25 entries and 40,000 characters are accepted. Expiry must be an exact UTC ISO timestamp and more than zero but no more than 24 hours in the future at execution. The normalized property, fixed task/purpose/retention body and stable key must match. Duplicate policy keys, extra fields, wildcard addresses and malformed policies are rejected. All items are preflighted before any HTTP call; expiry is rechecked before each request. A node argument named approvedEvidenceRequests or authorized cannot supply this credential policy. Missing policy blocks existing paid workflows until an operator reviews them. Free quote and authenticated usage remain available without paid approval.
 
 Use a dedicated credential with the smallest reviewed scope and remove expired entries. This is a local client boundary, not server-side budget enforcement: anyone who can edit credentials or execute arbitrary code with the API key is outside this protection. Repeated approved calls reuse the same key; server idempotency governs replay/retention. There is no local one-shot ledger or independent payment receipt verification. Model changes to address, city, state or key do not expand the approval.
+
+## When a request stops
+
+| Error | Next action |
+|---|---|
+| `VALID_CDF_CREDENTIAL_REQUIRED`, `AUTHENTICATION_FAILED`, `ACCESS_DENIED` | Check the selected CDF credential and active entitlement. If activation is pending or the key is lost/revoked, contact support; do not substitute another provider's token. |
+| `OPERATOR_APPROVAL_REQUIRED`, `INVALID_OPERATOR_POLICY`, `CUSTOMER_AUTHORIZATION_REQUIRED` | Have the operator review customer authority, exact scope/key, static policy and expiry. The model cannot approve itself. |
+| `INVALID_PROPERTY_SCOPE`, `SCOPE_OR_KEY_REJECTED` | Check address, exact supported city/jurisdiction, two-letter state and request-key format. Run the free check again after corrections. |
+| `IDEMPOTENCY_CONFLICT_OR_PENDING`, `TRANSPORT_ERROR_OUTCOME_UNKNOWN` | Stop and inspect the prior outcome or contact support. Retain the original body/key; a new key may cause another billable execution. |
+| `LIMIT_REACHED`, `UPSTREAM_UNAVAILABLE`, `SERVICE_UNAVAILABLE` | Inspect service access/limits or contact support before retrying. These errors do not mean that no government record exists. |
+| `INVALID_QUOTE_CONTRACT`, `INVALID_QUOTE_TIME`, `INVALID_EVIDENCE_CONTRACT`, `INVALID_USAGE_CONTRACT`, `HTTP_REQUEST_FAILED` | Stop, retain the safe error code and request context, and report a possible service/client mismatch. Do not bypass validation. |
 
 ## Existing work reused
 
