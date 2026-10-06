@@ -61,8 +61,10 @@ database, runtime instrumentation and raw execution state are not published.
 
 Paid approvals default to empty. Tests cover exact scope/key/expiry binding, malformed and oversized policies, forged model arguments, all-item preflight, expiry between items, stable idempotency, fixed destinations, disabled redirects, safe errors and response redaction. Credential editors remain trusted. This is not authenticated customer consent, a server-side budget limit, or independent receipt signature verification.
 
-The npm release is prepared but unpublished. A manually dispatched provenance
-workflow is included; no npm credential, trusted-publisher relationship or Creator
-Portal submission is created by it. Passing local checks does not establish n8n
-approval or replace the registry package scan. Internal review receipts and
-machine-specific harness files are intentionally not part of the public repository.
+## Published 0.1.0 verification — October 6, 2026
+
+[GitHub Actions run 37446661910](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/actions/runs/37446661910) published version 0.1.0 with provenance from commit `78b540e67095475543d5ffda4b469c36ee182bec`. The registry tarball SHA-256 is `d89a5403ad2644ce8a3291a76d63b760bcdbd26ca7123fe9e8351efb594c94d7`, identical to the reviewed candidate. All 11 installed files matched the registry artifact.
+
+Official scanner 0.38.0 returned explicit `passed: true` after checking provenance metadata, fetching the attested source and analyzing source plus registry package with inline suppressions disabled. A fresh install with n8n-workflow 2.40.1 loaded the node and credential, exercised the free-quote fixture, and blocked unapproved paid execution before transport. npm signature auditing passed with 160 verified registry signatures and 26 verified attestations across that fresh installation. A separate live free check through the actual node and native n8n HTTP helper returned `scope_ready_not_evidence`; no payment or evidence collection occurred.
+
+Version 0.1.1 changes documentation and version metadata only. Prior native editor/agent results apply to unchanged runtime bytes; registry scanning must still run for each published version. n8n verification remains pending. The workflow creates neither a trusted-publisher relationship nor a Creator Portal submission. Internal review receipts and machine-specific harness files remain outside this repository.

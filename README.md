@@ -1,6 +1,6 @@
 # CivicDataForge n8n node
 
-This TypeScript client connects to CivicDataForge's existing REST service. Version 0.1.0 is prepared for publication; npm publication and n8n verification remain pending. It is not an approved community node, partnership, hosted agent, or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
+This TypeScript client connects to CivicDataForge's existing REST service. [Version 0.1.0 is published on npm](https://www.npmjs.com/package/n8n-nodes-civicdataforge/v/0.1.0) with GitHub Actions provenance and a passing official package scan. Version 0.1.1 updates documentation only; runtime behavior is unchanged. n8n verification remains pending: publication does not imply n8n approval, partnership or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
 
 ## Operations
 
@@ -16,7 +16,7 @@ Scope: one public US property address, exact supported jurisdiction/city, and tw
 
 ## Start free, then connect paid evidence
 
-1. After npm publication, install `n8n-nodes-civicdataforge` in a self-hosted n8n instance that permits community nodes. The MIT connector has no license fee; n8n hosting and CDF evidence are separate costs. n8n Cloud availability requires separate n8n verification.
+1. Install [the published `n8n-nodes-civicdataforge` package](https://www.npmjs.com/package/n8n-nodes-civicdataforge) in a self-hosted n8n instance that permits community nodes. The MIT connector has no license fee; n8n hosting and CDF evidence are separate costs. n8n Cloud availability requires separate n8n verification.
 2. Import [the inactive free example](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/blob/main/examples/free-property-scope.workflow.json), enter one public address/city/state and execute manually. No credential is needed. Expect `scope_ready_not_evidence`, not government records.
 3. For this node's authenticated operations, review and subscribe to the [CivicDataForge AWS Marketplace offer](https://aws.amazon.com/marketplace/pp/prodview-6sjgyotxqa22o). Choose **Set up your account**, complete subscription activation and securely save the CDF API key shown once. The listing currently advertises **$0.10 per successful evidence request**, with failed requests and identical retries unbilled; the live listing and your accepted terms control. A delivered review-required or no-match packet is not necessarily a failed request.
 4. In n8n, create a **CivicDataForge API** credential and paste only your CDF key into **API Key**. Leave **Approved Evidence Requests** as `[]` initially. Test the credential or select **Get Usage** to check access without collecting evidence. Never enter an AWS secret, Apify token or payment credential.
@@ -80,11 +80,11 @@ The programmatic adapter is a deliberate implementation choice for whole-batch v
 
 ## Release and installation
 
-The 0.1.0 release is prepared but is not yet available from npm. Do not interpret
-this repository's public visibility as a published or n8n-verified package.
-After registry publication, self-hosted n8n users can install
+The package is [available from npm](https://www.npmjs.com/package/n8n-nodes-civicdataforge). Self-hosted n8n users can install
 `n8n-nodes-civicdataforge` through Settings > Community nodes, subject to their
 instance policy. n8n Cloud discovery requires n8n's separate verification.
+
+The [0.1.0 publication run](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/actions/runs/37446661910) passed typecheck, build, 78 tests, official lint and lint with inline configuration disabled. The published tarball matched the reviewed candidate byte for byte. Official scanner `@n8n/scan-community-package@0.38.0` returned explicit success after inspecting registry provenance, attested source commit `78b540e67095475543d5ffda4b469c36ee182bec` and packaged code. A fresh registry install passed node/credential loading, free-quote fixture and paid-approval denial checks; `npm audit signatures` verified registry signatures and attestations. These checks do not establish live paid fulfillment or n8n approval.
 
 For local development, build the package and load its compiled nodes/credentials
 through n8n's custom-node development path. Select CivicDataForge > Check Property

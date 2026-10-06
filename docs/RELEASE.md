@@ -7,9 +7,7 @@ npm publisher relationship is created by this repository.
 
 ## First publication
 
-At the October 6, 2026 check, the npm registry returned 404 for this package and
-the local npm client had no authenticated account. Confirm the actual npm
-maintainer identity before proceeding; a GitHub username is not an npm identity.
+Version 0.1.0 was published on October 6, 2026 through [GitHub Actions run 37446661910](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/actions/runs/37446661910). Registry readback confirmed maintainer `civicdataforge` and author CivicDataForge. The bootstrap procedure below is historical context; do not repeat first-publication token setup for an existing release. Use the approved trusted publisher for subsequent versions.
 
 npm requires a package to exist before configuring a trusted publisher. For an
 initial GitHub Actions publication, an owner can separately authorize a narrowly
