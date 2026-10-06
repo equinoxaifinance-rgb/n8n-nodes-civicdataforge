@@ -1,7 +1,6 @@
 {
   "name": "n8n-nodes-civicdataforge",
-  "version": "0.1.0-local.2",
-  "private": true,
+  "version": "0.1.0",
   "description": "Bounded CivicDataForge property scope and evidence REST operations",
   "license": "MIT",
   "author": {
@@ -41,5 +40,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

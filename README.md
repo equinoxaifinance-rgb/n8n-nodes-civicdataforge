@@ -1,6 +1,6 @@
 # CivicDataForge n8n node — local prototype
 
-This public-source, npm-unpublished TypeScript client connects to CivicDataForge's existing REST service. It is not an approved community node, partnership, hosted agent, or paid-service entitlement. `private: true` deliberately prevents accidental npm publication. No release script or active publishing workflow is included.
+This TypeScript client connects to CivicDataForge's existing REST service. Version 0.1.0 is prepared for publication; npm publication and n8n verification remain pending. It is not an approved community node, partnership, hosted agent, or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
 
 ## Operations
 
@@ -53,16 +53,34 @@ API contract: https://civicdataforge.pages.dev/openapi/civicdataforge-evidence-a
 
 ## Development and review
 
-Pinned official n8n CLI and workflow packages are development dependencies; the node has no external runtime dependency beyond n8n's host peer. Install with lifecycle scripts disabled: `npm ci --ignore-scripts`. Run `npm run typecheck`, `npm run build`, `npm test`, and `npm run lint`. Tests mock all network transport, including paid paths and credentials. See [validation notes](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/blob/main/docs/VALIDATION.md) for results and limitations; tests do not establish live paid fulfillment or native editor installation.
+Pinned official n8n CLI and workflow packages are development dependencies; the node has no external runtime dependency beyond n8n's host peer. Install with lifecycle scripts disabled: `npm ci --ignore-scripts`. Run `npm run typecheck`, `npm run build`, `npm test`, and `npm run lint`. Tests mock all network transport, including paid paths and credentials. See [validation notes](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/blob/main/docs/VALIDATION.md) for results and limitations; tests do not establish live paid fulfillment. Actual editor and full-agent fixture coverage is described in the validation notes.
 
-The programmatic adapter is a deliberate local-prototype choice for whole-batch validation, item linking, explicit charge gating and fixed error redaction. n8n recommends declarative REST nodes; reviewer feedback may require a declarative rewrite. No acceptance is implied by lint/typecheck results.
+The programmatic adapter is a deliberate implementation choice for whole-batch validation, item linking, explicit charge gating and fixed error redaction. n8n recommends declarative REST nodes; reviewer feedback may require a declarative rewrite. No acceptance is implied by lint/typecheck results.
 
-## npm publication remains inactive
+## Release and installation
 
-Before any separately authorized submission: confirm package/name availability and npm maintainer identity against this public repository; review MIT scope; confirm current n8n guidelines; validate in a supported native n8n environment; configure an explicitly authorized trusted publisher; remove the private guard only during approved release preparation. `docs/publish.yml.disabled` is an inactive provenance workflow draft outside `.github/workflows`. It must not be enabled by copying blindly.
+The 0.1.0 release is prepared but is not yet available from npm. Do not interpret
+this repository's public visibility as a published or n8n-verified package.
+After registry publication, self-hosted n8n users can install
+`n8n-nodes-civicdataforge` through Settings > Community nodes, subject to their
+instance policy. n8n Cloud discovery requires n8n's separate verification.
 
-Official rules require GitHub Actions provenance, no runtime dependencies, package conventions, documentation, source/maintainer identity and Creator Portal review. The public client repository is available for review. npm publishing, account terms, OAuth/npm credentials and portal submission have not been performed; n8n's positive email is not verification approval.
+For local development, build the package and load its compiled nodes/credentials
+through n8n's custom-node development path. Select CivicDataForge > Check Property
+Scope, enter the public address, city and state, and execute. No CDF credential is
+required for this free operation. In an AI Agent, attach CivicDataForge Tool and
+let the model fill address/city/state. Keep paid operations separately selected
+and operator-approved as described above. The inactive example workflow does not
+purchase evidence or enable a schedule.
 
+[Release procedure](https://github.com/equinoxaifinance-rgb/n8n-nodes-civicdataforge/blob/main/docs/RELEASE.md) describes the first-publication bootstrap,
+exact trusted-publisher setup, registry readback and Creator Portal submission.
+The manual `.github/workflows/publish.yml` checks the exact requested commit and
+version, runs all local checks, and uses GitHub Actions provenance. No token or
+trusted-publisher relationship is included. Do not dispatch it until the npm
+maintainer and exact publishing authorization are established.
+
+Official requirements:
 https://docs.n8n.io/connect/create-nodes/deploy-your-node/submit-community-nodes
 https://docs.n8n.io/connect/create-nodes/build-your-node/reference/verification-guidelines
 

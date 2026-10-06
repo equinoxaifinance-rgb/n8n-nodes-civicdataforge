@@ -1,0 +1,62 @@
+name: Publish reviewed npm release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact reviewed package version
+        required: true
+        type: string
+      commit:
+        description: Exact reviewed 40-character commit SHA
+        required: true
+        type: string
+      authentication:
+        description: OIDC after trusted-publisher setup; bootstrap only with separately approved temporary secret
+        required: true
+        type: choice
+        default: oidc
+        options:
+          - oidc
+          - bootstrap
+permissions:
+  contents: read
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+      - name: Verify exact release selection
+        env:
+          EXPECTED_VERSION: ${{ inputs.version }}
+          EXPECTED_COMMIT: ${{ inputs.commit }}
+        run: |
+          node -e 'const p=require("./package.json"); if (!/^[a-f0-9]{40}$/.test(process.env.EXPECTED_COMMIT) || process.env.GITHUB_SHA!==process.env.EXPECTED_COMMIT || p.version!==process.env.EXPECTED_VERSION || p.private===true || p.name!=="n8n-nodes-civicdataforge" || process.env.GITHUB_REPOSITORY!=="equinoxaifinance-rgb/n8n-nodes-civicdataforge") process.exit(1)'
+      - run: npm ci --ignore-scripts
+      - run: npm run typecheck
+      - run: npm run build
+      - run: npm test
+      - run: npm run lint
+      - run: node node_modules/eslint/bin/eslint.js . --no-inline-config
+      - name: Publish with trusted identity
+        if: inputs.authentication == 'oidc'
+        run: npm publish --provenance --access public --ignore-scripts
+      - name: First publication with separately approved bootstrap credential
+        if: inputs.authentication == 'bootstrap'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then echo 'Approved bootstrap credential is missing'; exit 1; fi
+          npm publish --provenance --access public --ignore-scripts
