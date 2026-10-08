@@ -1,6 +1,6 @@
 # CivicDataForge n8n node
 
-This TypeScript client connects to CivicDataForge's existing REST service. [Version 0.1.0 is published on npm](https://www.npmjs.com/package/n8n-nodes-civicdataforge/v/0.1.0) with GitHub Actions provenance and a passing official package scan. Version 0.1.1 updates documentation only; runtime behavior is unchanged. n8n verification remains pending: publication does not imply n8n approval, partnership or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
+This TypeScript client connects to CivicDataForge's existing REST service. [Version 0.1.1 is published on npm](https://www.npmjs.com/package/n8n-nodes-civicdataforge/v/0.1.1) with GitHub Actions provenance. It updates documentation only; runtime behavior is unchanged from 0.1.0, which passed the official package scan. n8n verification remains pending: publication does not imply n8n approval, partnership or paid-service entitlement. The release workflow runs only on an explicit manual dispatch bound to an exact version and commit.
 
 ## Operations
 

@@ -1,12 +1,12 @@
 {
   "schema": "civicdataforge.public-source-manifest.v1",
   "package_version": "0.1.1",
-  "npm_published": false,
+  "npm_published": true,
   "files": {
     ".github/workflows/publish.yml": "1856e4c434373a3d06b0cb038b394681e74ce5438db02a447ce08d6353136c4a",
     ".gitignore": "f246384a20cb2d65aa93c714d8ae7ceb5d329f1421380beaa2ba6dad28af8c2f",
     "LICENSE": "bbca9112397664dbdc15decadeae7b47a634c369934f4d505797055ce21e094e",
-    "README.md": "24f604c80a7ea51940201d386473f77b511093df2d105bd3356594b02d33f065",
+    "README.md": "4b9f747b49a72fa9099f8dcca7883e0415d375820e89193ee6cf9a935492dd04",
     "credentials/CivicDataForgeApi.credentials.ts": "d496aeec73b32e64d66ed5392679c9b8aefb365eb2325c775166641ad7002e4b",
     "credentials/cdf.svg": "4a956eda21d0f1bf20460017a7f576659dafe5a7d1218e52582f8dcd83686c8b",
     "docs/RELEASE.md": "e3e706e50939ee3c038325b9e59568c63e61391c7cc04dc3d10970be4b013a66",
@@ -26,5 +26,5 @@
     "tsconfig.json": "e9abf702db9c58b2851a0e3978efdf55e05049c869b5ac6cc1e0d45d3b9f5002"
   },
   "note": "SHA-256 of reviewed public source files; manifest excludes itself. Compiled dist and dependency trees are generated locally and not committed.",
-  "latest_verified_published_version": "0.1.0"
+  "latest_verified_published_version": "0.1.1"
 }
